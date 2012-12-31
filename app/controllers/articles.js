@@ -15,30 +15,37 @@ exports.new = function(req, res){
 
 // Create an article
 exports.create = function (req, res) {
+
   var article = new Article(req.body)
     , imagerConfig = require('../../config/imager')
     , imager = new Imager(imagerConfig, 'S3')
 
-  article.user = req.user
+  article.user = req.user;
 
-  imager.upload(req.files.image, function (err, cdnUri, files) {
-    if (err) return res.render('400')
-    if (files.length) {
-      article.image = { cdnUri : cdnUri, files : files }
-    }
-    article.save(function(err){
-      if (err) {
-        res.render('articles/new', {
-            title: 'New Article'
-          , article: article
-          , errors: err.errors
-        })
+  var imageData = null; 
+
+  if (req.files && req.files.image) {
+    imager.upload(req.files.image, function (err, cdnUri, files) {
+      if (err) return res.end(JSON.stringify( {error : err })) ;
+      if (files.length) {
+        article.image = { cdnUri : cdnUri, files : files }
       }
-      else {
-        res.redirect('/articles/'+article._id)
-      }
-    })
-  }, 'article')
+      article.save(function(err){
+        if (err) {
+          res.end(JSON.stringify( {
+              title: 'New Article'
+            , article: article
+            , errors: err.errors
+          }))
+        }
+        else {
+          res.end(JSON.stringify({articleId : article._id}));
+        }
+      })
+    }, 'article')
+  }else{
+    res.end(JSON.stringify({error : 'no image '}));
+  }
 }
 
 
@@ -87,7 +94,7 @@ exports.destroy = function(req, res){
   var article = req.article
   article.remove(function(err){
     // req.flash('notice', 'Deleted successfully')
-    res.redirect('/articles')
+    res.end(JSON.stringify({error : err}));
   })
 }
 
@@ -106,12 +113,12 @@ exports.index = function(req, res){
     .exec(function(err, articles) {
       if (err) return res.render('500')
       Article.count().exec(function (err, count) {
-        res.render('articles/index', {
+        res.end(JSON.stringify( {
             title: 'List of Articles'
           , articles: articles
           , page: page
           , pages: count / perPage
-        })
+        }))
       })
     })
 }
