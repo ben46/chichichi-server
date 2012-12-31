@@ -1,9 +1,9 @@
 {
-    "name": "noobjs"
+    "name": "chichichi-server"
   , "description": "A demo app in nodejs illustrating use of express, jade and mogoose"
-  , "version": "3.0.0"
+  , "version": "0.0.1"
   , "private": false
-  , "author": "Madhusudhan Srinivasa <madhums8@gmail.com> (http://madhums.github.com)"
+  , "author": "Ben Charlie <ben02060846@gmail.com> (http://ben46.github.com)"
   , "engines": {
         "node": "0.6.18"
       , "npm": "1.1.9"
