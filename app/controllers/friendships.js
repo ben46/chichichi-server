@@ -36,15 +36,15 @@ exports.friends = function(req, res){
     if (err) {
         return res.end(JSON.stringify({error : err}));
     }else{
-      var jsondata = {};
+      var array = [];
       var friendsIds = user.friends;
 
       for(int i  = 0; i < friendsIds.length ; i++){
           User.findOne({uid:friendsIds[i]}, function(err, friend){
-            // jsondata.push(friend);
+            array.push(friend);
           });
       }
-      return res.end(JSON.stringify(jsondata));
+      return res.end(JSON.stringify({array}));
     }
   });
 }
@@ -77,15 +77,15 @@ exports.followers = function (req, res) {
     if (err) {
         return res.end(JSON.stringify({error : err}));
     }else{
-      var jsondata = {};
+      var array = [];
       var followersIds = user.followers;
 
       for(int i  = 0; i < followersIds.length ; i++){
           User.findOne({uid:followersIds[i]}, function(err, follower){
-            // jsondata.push(follower);
+            array.push(follower);
           });
       }
-      return res.end(JSON.stringify(jsondata));
+      return res.end(JSON.stringify({array}));
     }
   });
 }
