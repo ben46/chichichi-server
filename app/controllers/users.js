@@ -38,14 +38,17 @@ exports.session = function (req, res) {
 // signup
 exports.create = function (req, res) {
   var user = new User(req.body)
+  // add code here
+  // --------------
+  // get weibo friends 
   user.provider = 'local'
   user.save(function (err) {
     if (err) {
-      return res.render('users/signup', { errors: err.errors, user: user })
+      return res.end(JSON.stringify({ errors: err.errors, user: user })) ;
     }
     req.logIn(user, function(err) {
       if (err) return next(err)
-      return res.redirect('/')
+      return res.write(JSON.stringify({ errors: err.errors, user: user })) ;
     })
   })
 }

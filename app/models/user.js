@@ -18,7 +18,9 @@ var UserSchema = new Schema({
   , github: {}
   , weibo: {}
   , articles : [{type : Schema.ObjectId , ref : 'Article'}]
-  
+  , follower : [{type : Schema.ObjectId , ref : 'User'}]
+  , friends : [{type : Schema.ObjectId , ref : 'User'}]
+
 })
 
 // virtual attributes

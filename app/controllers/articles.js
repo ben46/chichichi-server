@@ -123,3 +123,36 @@ exports.index = function(req, res){
     })
 }
 
+exports.friends_timeline = function(req, res){
+}
+exports.friends_timeline_ids = function(req, res){
+}
+exports.user_timeline = function(req, res){
+}
+exports.user_timeline_ids = function(req, res){
+}
+exports.bilateral_timeline = function(req, res){
+}
+exports.likedcount = function(req, res){
+}
+exports.mentions = function(req, res){
+}
+exports.mentions_ids = function(req, res){
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
