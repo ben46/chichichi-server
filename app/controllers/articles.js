@@ -124,20 +124,36 @@ exports.index = function(req, res){
 }
 
 exports.friends_timeline = function(req, res){
+    return  res.end('friends_bilateral_ids');
+
 }
 exports.friends_timeline_ids = function(req, res){
+    return  res.end('friends_bilateral_ids');
+
 }
 exports.user_timeline = function(req, res){
+    return  res.end('friends_bilateral_ids');
+
 }
 exports.user_timeline_ids = function(req, res){
+    return  res.end('friends_bilateral_ids');
+
 }
 exports.bilateral_timeline = function(req, res){
+    return  res.end('friends_bilateral_ids');
+
 }
 exports.likedcount = function(req, res){
+    return  res.end('friends_bilateral_ids');
+
 }
 exports.mentions = function(req, res){
+    return  res.end('friends_bilateral_ids');
+
 }
 exports.mentions_ids = function(req, res){
+    return  res.end('friends_bilateral_ids');
+
 }
 
 

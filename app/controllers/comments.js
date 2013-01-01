@@ -24,25 +24,37 @@ exports.create = function (req, res) {
 
 exports.show = function (req, res) {
   console.log('comment show');
+    return  res.end('friends_bilateral_ids');
+
 }
 
 exports.by_me = function (req, res) {
   console.log('comment by_me');
+    return  res.end('friends_bilateral_ids');
+
 }
 
 exports.to_me = function (req, res) {
   console.log('comment to_me');
+    return  res.end('friends_bilateral_ids');
+
 }
 
 exports.timeline = function (req, res) {
   console.log('comment timeline');
+    return  res.end('friends_bilateral_ids');
+
 }
 
 exports.mentions = function (req, res) {
   console.log('comment mentions');
+    return  res.end('friends_bilateral_ids');
+
 }
 exports.show_batch = function (req, res) {
   console.log('comment show_batch');
+    return  res.end('friends_bilateral_ids');
+
 }
 
 
