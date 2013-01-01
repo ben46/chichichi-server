@@ -1,6 +1,7 @@
 
 var mongoose = require('mongoose')
   , Article = mongoose.model('Article')
+  , User = mongoose.model('User')
   , Imager = require('imager')
   , _ = require('underscore')
 
@@ -57,28 +58,6 @@ exports.edit = function (req, res) {
   })
 }
 
-
-// Update article
-exports.update = function(req, res){
-  var article = req.article
-
-  article = _.extend(article, req.body)
-
-  article.save(function(err, doc) {
-    if (err) {
-      res.render('articles/edit', {
-          title: 'Edit Article'
-        , article: article
-        , errors: err.errors
-      })
-    }
-    else {
-      res.redirect('/articles/'+article._id)
-    }
-  })
-}
-
-
 // View an article
 exports.show = function(req, res){
   res.render('articles/show', {
@@ -124,7 +103,28 @@ exports.index = function(req, res){
 }
 
 exports.friends_timeline = function(req, res){
-    return  res.end('friends_bilateral_ids');
+
+  var uid = req.user.uid;
+  var postsArray = [];
+  User.findOne({uid:uid}, function(err , user){
+
+    var friendsuids = user.friends;
+    for(int i = 0 ; i < friendsuids.length ; i++){
+      User.findOne({uid: friendsuids[i]}, function(err , friend){
+        var articleIds = friend.articles;
+        for(int  j = 0 ; j< articleIds.length ; j++){
+          Article.findOne({id: articleIds[j]}, function(err, article){
+            postsArray.push(article);
+          });
+        }
+      }) 
+    }
+  })
+
+  return  res.end(JSON.stringify({
+    posts : postsArray
+    , totalNumber : postsArray.length
+  }));
 
 }
 exports.friends_timeline_ids = function(req, res){
@@ -132,7 +132,22 @@ exports.friends_timeline_ids = function(req, res){
 
 }
 exports.user_timeline = function(req, res){
-    return  res.end('friends_bilateral_ids');
+
+  var uid = req.user.uid;
+  var postsArray = [];
+  User.findOne({ uid:uid }, function(err , user){
+    var articleIds = user.articles;
+    for(int  j = 0 ; j< articleIds.length ; j++){
+      Article.findOne({id: articleIds[j]}, function(err, article){
+        postsArray.push(article);
+      });
+    }
+  }) 
+
+  return  res.end(JSON.stringify({
+    posts : postsArray
+    , totalNumber : postsArray.length
+  }));
 
 }
 exports.user_timeline_ids = function(req, res){
